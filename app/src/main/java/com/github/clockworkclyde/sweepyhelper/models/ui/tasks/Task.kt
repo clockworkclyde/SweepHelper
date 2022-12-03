@@ -2,6 +2,7 @@ package com.github.clockworkclyde.sweepyhelper.models.ui.tasks
 
 import com.github.clockworkclyde.sweepyhelper.models.local.tasks.TaskEntity
 import com.github.clockworkclyde.sweepyhelper.models.ui.rooms.Condition
+import com.github.clockworkclyde.sweepyhelper.utils.DateTimeConverter
 import com.github.clockworkclyde.sweepyhelper.utils.IConvertableTo
 import org.joda.time.DateTime
 
@@ -21,8 +22,8 @@ data class Task(
             id = id,
             title = title,
             owner = owner,
-            startDate = startDate,
-            lastCleanedUpAt = lastCleanedUpAt,
+            startDate = DateTimeConverter.dateToString(startDate),
+            lastCleanedUpAt = DateTimeConverter.dateToString(lastCleanedUpAt),
             regularity = regularity,
             isOnRepeatNow = isOnRepeatNow
         )

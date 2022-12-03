@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.github.clockworkclyde.sweepyhelper.models.ui.tasks.Regularity
 import com.github.clockworkclyde.sweepyhelper.models.ui.tasks.Task
+import com.github.clockworkclyde.sweepyhelper.utils.DateTimeConverter
 import com.github.clockworkclyde.sweepyhelper.utils.IConvertableTo
-import org.joda.time.DateTime
 
 @Entity
 data class TaskEntity(
@@ -14,9 +14,10 @@ data class TaskEntity(
     val owner: Long,
     val regularity: Regularity,
     val isOnRepeatNow: Boolean,
-    val startDate: DateTime,
-    val lastCleanedUpAt: DateTime
+    val startDate: String,
+    val lastCleanedUpAt: String
 ) : IConvertableTo<Task> {
+
     override fun convertTo(): Task {
         return Task(
             id = id,
@@ -24,8 +25,8 @@ data class TaskEntity(
             owner = owner,
             regularity = regularity,
             isOnRepeatNow = isOnRepeatNow,
-            startDate = startDate,
-            lastCleanedUpAt = lastCleanedUpAt
+            startDate = DateTimeConverter.stringToDate(startDate),
+            lastCleanedUpAt = DateTimeConverter.stringToDate(lastCleanedUpAt)
         )
     }
 }

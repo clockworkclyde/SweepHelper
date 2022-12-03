@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.github.clockworkclyde.sweepyhelper"
@@ -65,9 +65,9 @@ dependencies {
     implementation "io.insert-koin:koin-androidx-compose:3.2.1"
 
     // Network
-//    def retrofit = '2.9.0'
+    def retrofit = '2.9.0'
 //    implementation "com.squareup.retrofit2:retrofit:$retrofit"
-//    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
 //    implementation "com.squareup.okhttp3:logging-interceptor:4.10.0"
 
     // Room
@@ -78,4 +78,7 @@ dependencies {
 
     // For better working with time dates
     implementation 'joda-time:joda-time:2.12.2'
+
+    // AfterEffect animations integration
+    implementation "com.airbnb.android:lottie-compose:5.2.0"
 }

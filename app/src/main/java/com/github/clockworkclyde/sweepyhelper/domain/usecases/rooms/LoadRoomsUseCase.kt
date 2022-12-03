@@ -5,7 +5,7 @@ import com.github.clockworkclyde.sweepyhelper.models.ui.rooms.Room
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class LoadRoomsUseCase(
+class LoadRoomsUseCase constructor(
     private val repository: RoomsRepository,
     private val getConditionUseCase: GetConditionForRoomUseCase
 ) {

@@ -6,13 +6,15 @@ import com.github.clockworkclyde.sweepyhelper.data.datasources.RoomsLocalDataSou
 import com.github.clockworkclyde.sweepyhelper.data.datasources.TasksLocalDataSource
 import com.github.clockworkclyde.sweepyhelper.domain.repository.RoomsRepository
 import com.github.clockworkclyde.sweepyhelper.domain.repository.TasksRepository
+import com.github.clockworkclyde.sweepyhelper.providers.datasources.RoomsLocalDataSourceImpl
+import com.github.clockworkclyde.sweepyhelper.providers.datasources.TasksLocalDataSourceImpl
 import org.koin.dsl.module
 
 val dataModule = module {
     single<RoomsRepository> { RoomsRepositoryImpl(get()) }
     single<TasksRepository> { TasksRepositoryImpl(get()) }
 
-    factory { get<TasksLocalDataSource>() }
-    factory { get<RoomsLocalDataSource>() }
+    single<TasksLocalDataSource> { TasksLocalDataSourceImpl(get()) }
+    single<RoomsLocalDataSource> { RoomsLocalDataSourceImpl(get()) }
 }
 
