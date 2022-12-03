@@ -1,12 +1,12 @@
 package com.github.clockworkclyde.sweepyhelper.ui.rooms
 
-import com.github.clockworkclyde.sweepyhelper.ui.base.ViewEffect
-import com.github.clockworkclyde.sweepyhelper.ui.base.ViewEvent
+import com.github.clockworkclyde.sweepyhelper.ui.base.IViewEffect
+import com.github.clockworkclyde.sweepyhelper.ui.base.IViewEvent
 
-sealed class RoomsViewEvent : ViewEvent {
+sealed class RoomsViewEvent : IViewEvent {
     object LoadRooms : RoomsViewEvent()
 }
 
-sealed class RoomsViewEffect : ViewEffect {
+sealed class RoomsViewEffect : IViewEffect {
 
 }
