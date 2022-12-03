@@ -3,18 +3,15 @@ package com.github.clockworkclyde.sweepyhelper.utils
 import com.google.gson.Gson
 import org.joda.time.DateTime
 
-class DateTimeConverter {
+object DateTimeConverter {
 
-    companion object {
-        private val gson = Gson()
+    private val gson = Gson()
 
+    fun stringToDate(source: String): DateTime {
+        return gson.fromJson(source, DateTime::class.java)
+    }
 
-        fun stringToDate(source: String): DateTime {
-            return gson.fromJson(source, DateTime::class.java)
-        }
-
-        fun dateToString(date: DateTime): String {
-            return gson.toJson(date)
-        }
+    fun dateToString(date: DateTime): String {
+        return gson.toJson(date)
     }
 }
