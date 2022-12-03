@@ -1,15 +1,9 @@
 package com.github.clockworkclyde.sweepyhelper.ui.base
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel<
@@ -21,8 +15,8 @@ abstract class BaseViewModel<
     private val initialState: UiState by lazy { setInitialState() }
     abstract fun setInitialState(): UiState
 
-    private val _viewState: MutableState<UiState> = mutableStateOf(initialState)
-    val viewState: State<UiState> = _viewState
+    private val _viewState = MutableStateFlow<UiState>(initialState)
+    val viewState = _viewState.asStateFlow()
 
     private val _event = MutableSharedFlow<Event>()
 

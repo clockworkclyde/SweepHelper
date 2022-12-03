@@ -19,7 +19,7 @@ class RoomsViewModel(private val loadRoomsUseCase: LoadRoomsUseCase) :
 
     override fun handleEvents(event: RoomsViewEvent) {
         when (event) {
-            is RoomsViewEvent.LoadRooms -> loadRooms()
+            is RoomsViewEvent.EnterScreen -> loadRooms()
         }
     }
 

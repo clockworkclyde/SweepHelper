@@ -6,4 +6,6 @@
     <string name="condition_fine">Неплохо</string>
     <string name="condition_great">Замечательно!</string>
     <string name="condition_empty">Пока нет дел</string>
+    <string name="no_rooms_found">Комнаты не найдены</string>
+    <string name="btn_create_first_room">Создать новую</string>
 </resources>
