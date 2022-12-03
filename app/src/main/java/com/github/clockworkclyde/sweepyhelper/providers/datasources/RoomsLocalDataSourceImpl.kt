@@ -2,10 +2,10 @@ package com.github.clockworkclyde.sweepyhelper.providers.datasources
 
 import com.github.clockworkclyde.sweepyhelper.data.datasources.RoomsLocalDataSource
 import com.github.clockworkclyde.sweepyhelper.models.local.rooms.RoomEntity
-import com.github.clockworkclyde.sweepyhelper.providers.database.SweepyDao
+import com.github.clockworkclyde.sweepyhelper.providers.database.RoomsDao
 import kotlinx.coroutines.flow.Flow
 
-class RoomsLocalDataSourceImpl(private val dao: SweepyDao) : RoomsLocalDataSource {
+class RoomsLocalDataSourceImpl(private val dao: RoomsDao) : RoomsLocalDataSource {
 
     override fun loadRooms(): Flow<List<RoomEntity>> {
         return dao.getAllRooms()

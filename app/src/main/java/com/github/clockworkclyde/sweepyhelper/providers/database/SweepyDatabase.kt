@@ -6,6 +6,7 @@ import androidx.room.RoomDatabase
 @Database(entities = [], views = [], version = 1, exportSchema = false)
 abstract class SweepyDatabase : RoomDatabase() {
 
-    abstract fun getDao(): SweepyDao
+    abstract fun getRoomsDao(): RoomsDao
+    abstract fun getTasksDao(): TasksDao
 
 }
