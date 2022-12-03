@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SweepyHelper</string>
+    <string name="condition_low">Кажется, про меня забыли..</string>
+    <string name="condition_critical_low">Я видел там мух..</string>
+    <string name="condition_medium">Дел поднакопилось</string>
+    <string name="condition_fine">Неплохо</string>
+    <string name="condition_great">Замечательно!</string>
+    <string name="condition_empty">Пока нет дел</string>
+</resources>
