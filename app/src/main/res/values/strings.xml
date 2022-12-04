@@ -8,4 +8,14 @@
     <string name="condition_empty">Пока нет дел</string>
     <string name="no_rooms_found">Комнаты не найдены</string>
     <string name="btn_create_first_room">Создать новую</string>
+    <string name="compose_room_title">Название комнаты</string>
+    <string name="compose_new_room">Создание комнаты</string>
+    <string name="compose_room_type">Тип комнаты</string>
+    <string name="room_type_kitchen">Кухня</string>
+    <string name="room_type_hall">Прихожая</string>
+    <string name="room_type_bathroom">Ванная комната</string>
+    <string name="room_type_bedroom">Спальная комната</string>
+    <string name="room_type_wardrobe">Гардероб</string>
+    <string name="room_type_not_selected">Не выбран</string>
+    <string name="compose_room_save_btn">Создать</string>
 </resources>

@@ -5,7 +5,7 @@ import com.github.clockworkclyde.sweepyhelper.models.local.rooms.RoomEntity
 import com.github.clockworkclyde.sweepyhelper.utils.IConvertableTo
 
 data class Room(
-    val id: Long,
+    val id: Long = 0L,
     val title: String,
     val type: RoomType,
     val condition: Condition = Condition.Empty
@@ -24,6 +24,11 @@ enum class Condition(val id: Int, val value: Int) {
     Empty(R.string.condition_empty, -1)
 }
 
-enum class RoomType {
-    Kitchen, Hall, Bathroom, Bedroom, Wardrobe
+enum class RoomType(val titleId: Int) {
+    Kitchen(R.string.room_type_kitchen),
+    Hall(R.string.room_type_hall),
+    Bathroom(R.string.room_type_bathroom),
+    Bedroom(R.string.room_type_bedroom),
+    Wardrobe(R.string.room_type_wardrobe),
+    NotSelected(R.string.room_type_not_selected)
 }

@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import com.github.clockworkclyde.sweepyhelper.ui.rooms.RoomsScreen
-import com.github.clockworkclyde.sweepyhelper.ui.rooms.RoomsViewModel
+import com.github.clockworkclyde.sweepyhelper.ui.compose.ComposeScreen
+import com.github.clockworkclyde.sweepyhelper.ui.compose.ComposeViewModel
 import com.github.clockworkclyde.sweepyhelper.ui.theme.SweepyHelperTheme
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    RoomsScreen(getViewModel<RoomsViewModel>())
+                    ComposeScreen(viewModel = getViewModel<ComposeViewModel>())
                 }
             }
         }

@@ -8,7 +8,7 @@ import com.github.clockworkclyde.sweepyhelper.utils.IConvertableTo
 
 @Entity
 data class RoomEntity(
-    @PrimaryKey val id: Long,
+    @PrimaryKey(autoGenerate = true) val id: Long,
     val title: String,
     val type: RoomType
 ) : IConvertableTo<Room> {
