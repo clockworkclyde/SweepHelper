@@ -9,6 +9,7 @@ import org.koin.dsl.module
 val databaseModule = module {
     fun provideDatabase(app: Application): SweepyDatabase {
         return Room.databaseBuilder(app, SweepyDatabase::class.java, "SweepyDatabase")
+            .fallbackToDestructiveMigration()
             .build()
     }
 

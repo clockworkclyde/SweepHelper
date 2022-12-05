@@ -6,10 +6,13 @@ import com.github.clockworkclyde.sweepyhelper.models.ui.rooms.Condition
 class GetConditionForRoomUseCase(private val tasksRepository: TasksRepository) {
 
     suspend operator fun invoke(id: Long): Condition {
-        return tasksRepository.getTasksByOwnerId(id).map { it.condition }.let {
-            val count = it.count()
-            calculateRoomCondition(it.sumOf { cond -> cond.value }, count)
-        }
+        return tasksRepository.getTasksByOwnerId(id)
+            .takeIf { it.isNotEmpty() }
+            ?.map { it.condition }
+            ?.let {
+                val count = it.count()
+                calculateRoomCondition(it.sumOf { cond -> cond.value }, count)
+            } ?: Condition.Empty
     }
 
     private fun calculateRoomCondition(sum: Int, count: Int): Condition {

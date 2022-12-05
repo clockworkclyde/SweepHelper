@@ -3,12 +3,13 @@ package com.github.clockworkclyde.sweepyhelper.ui.rooms
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.navigation.NavController
 import com.github.clockworkclyde.sweepyhelper.ui.rooms.composables.RoomsViewContentList
 import com.github.clockworkclyde.sweepyhelper.ui.rooms.composables.RoomsViewEmpty
 import com.github.clockworkclyde.sweepyhelper.ui.rooms.composables.RoomsViewLoading
 
 @Composable
-fun RoomsScreen(viewModel: RoomsViewModel) {
+fun RoomsScreen(navController: NavController, viewModel: RoomsViewModel) {
     val viewState = viewModel.viewState.collectAsState()
     val state = viewState.value
     when {
@@ -19,7 +20,7 @@ fun RoomsScreen(viewModel: RoomsViewModel) {
                 RoomsViewContentList(items = state.data)
             } else {
                 RoomsViewEmpty {
-                    // Navigate to compose new room
+                    navController.navigate(route = "compose")
                 }
             }
         }
