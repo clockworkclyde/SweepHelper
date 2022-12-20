@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -66,14 +65,13 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppNavHost(navController: NavHostController, appBarStateChanged: (AppBarState) -> Unit) {
     NavHost(navController = navController, startDestination = MainScreenDirections.Root.route) {
-        roomsWithTasksGraph(navController = navController, AppBarStateChanged = appBarStateChanged)
-        composeGraph(navController = navController, appBarState = appBarStateChanged)
+        roomsWithTasksGraph(appBarStateChanged = appBarStateChanged)
+        composeGraph(appBarStateChanged = appBarStateChanged)
     }
 }
 
 private fun NavGraphBuilder.composeGraph(
-    navController: NavController,
-    appBarState: (AppBarState) -> Unit
+    appBarStateChanged: (AppBarState) -> Unit
 ) {
     navigation(
         startDestination = ComposeDirections.ComposeRoom.route,
@@ -83,7 +81,7 @@ private fun NavGraphBuilder.composeGraph(
         composable(ComposeDirections.ComposeRoom.route) {
             ComposeRoomScreen(
                 viewModel = getViewModel<ComposeViewModel>(),
-                onComposing = appBarState
+                onComposing = appBarStateChanged
             )
         }
         composable(ComposeDirections.TasksSuggestions.route) {
@@ -91,7 +89,7 @@ private fun NavGraphBuilder.composeGraph(
             ComposeViewTaskSuggestions(
                 viewModel = viewModel,
                 onSaveTasksClicked = { viewModel.setEvent(ComposeViewEvent.SubmitTasksSuggestions(it)) },
-                appBarState = appBarState
+                appBarState = appBarStateChanged
             )
         }
         composable(ComposeDirections.ComposeTask.route) {
@@ -100,15 +98,14 @@ private fun NavGraphBuilder.composeGraph(
                 viewModel = viewModel,
                 regularities = viewModel.taskRegularities,
                 onTaskCreated = { },
-                onComposing = appBarState
+                onComposing = appBarStateChanged
             )
         }
     }
 }
 
 private fun NavGraphBuilder.roomsWithTasksGraph(
-    navController: NavHostController,
-    AppBarStateChanged: (AppBarState) -> Unit
+    appBarStateChanged: (AppBarState) -> Unit
 ) {
     navigation(
         startDestination = MainScreenDirections.Rooms.route,
@@ -117,9 +114,8 @@ private fun NavGraphBuilder.roomsWithTasksGraph(
     ) {
         composable(MainScreenDirections.Rooms.route) {
             RoomsScreen(
-                navController = navController,
                 viewModel = getViewModel<RoomsViewModel>(),
-                onComposing = AppBarStateChanged
+                onComposing = appBarStateChanged
             )
         }
         composable(
@@ -127,7 +123,6 @@ private fun NavGraphBuilder.roomsWithTasksGraph(
             arguments = MainScreenDirections.Tasks.args
         ) {
             TasksListScreen(
-                navController = navController,
                 viewModel = getViewModel<TasksViewModel>(),
                 roomId = it.arguments?.getLong(MainScreenDirections.KEY_ROOM_ID)
             )
@@ -137,7 +132,6 @@ private fun NavGraphBuilder.roomsWithTasksGraph(
             arguments = MainScreenDirections.TaskDetails.args
         ) {
 //            TaskDetailsScreen(
-//                navController = navController,
 //                roomId = it.arguments?.getLong(MainScreenDirections.taskDetails.room),
 //                taskId = it.arguments?.getLong(MainScreenDirections.taskId)
 //            ) {

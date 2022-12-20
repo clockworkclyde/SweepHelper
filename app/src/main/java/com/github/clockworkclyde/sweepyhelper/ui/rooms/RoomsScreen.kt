@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavController
 import com.github.clockworkclyde.sweepyhelper.R
 import com.github.clockworkclyde.sweepyhelper.models.ui.base.AppBarState
 import com.github.clockworkclyde.sweepyhelper.ui.rooms.views.RoomsViewContentList
@@ -13,7 +12,6 @@ import com.github.clockworkclyde.sweepyhelper.ui.rooms.views.RoomsViewLoading
 
 @Composable
 fun RoomsScreen(
-    navController: NavController,
     viewModel: RoomsViewModel,
     onComposing: (AppBarState) -> Unit
 ) {

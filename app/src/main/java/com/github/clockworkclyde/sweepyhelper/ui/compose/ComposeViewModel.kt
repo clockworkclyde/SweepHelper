@@ -112,6 +112,7 @@ class ComposeViewModel(
                 createEmptyRoom(room)
             }
             setState { copyToSaveLocallySuccess() }
+            navigationController.setNewDestination(NavigateUpDestination)
         }
     }
 
