@@ -6,11 +6,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
 import com.github.clockworkclyde.sweepyhelper.R
 import com.github.clockworkclyde.sweepyhelper.models.ui.base.AppBarState
+import com.github.clockworkclyde.sweepyhelper.ui.compose.contract.ComposeRoomViewEvent
 import com.github.clockworkclyde.sweepyhelper.ui.compose.views.ComposeViewNewRoom
 
 @Composable
 fun ComposeRoomScreen(
-    viewModel: ComposeViewModel,
+    viewModel: ComposeRoomViewModel,
     onComposing: (AppBarState) -> Unit
 ) {
     val state = viewModel.viewState.collectAsState().value
@@ -21,9 +22,9 @@ fun ComposeRoomScreen(
         else -> {
             ComposeViewNewRoom(
                 state = state,
-                onTitleChanged = { viewModel.setEvent(ComposeViewEvent.RoomTitleChanged(it)) },
-                onTypeChanged = { viewModel.setEvent(ComposeViewEvent.RoomTypeChanged(it)) },
-                onSaveButtonClicked = { viewModel.setEvent(ComposeViewEvent.CreateRoomButtonClicked) },
+                onTitleChanged = { viewModel.setEvent(ComposeRoomViewEvent.RoomTitleChanged(it)) },
+                onTypeChanged = { viewModel.setEvent(ComposeRoomViewEvent.RoomTypeChanged(it)) },
+                onSaveButtonClicked = { viewModel.setEvent(ComposeRoomViewEvent.CreateRoomButtonClicked) },
                 roomTypes = viewModel.roomTypes
             )
         }

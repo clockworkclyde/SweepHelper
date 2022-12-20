@@ -21,16 +21,16 @@ import com.github.clockworkclyde.sweepyhelper.models.ui.base.AppBarState
 import com.github.clockworkclyde.sweepyhelper.models.ui.tasks.Task
 import com.github.clockworkclyde.sweepyhelper.ui.composables.DateTimePicker
 import com.github.clockworkclyde.sweepyhelper.ui.composables.ExpandableCardCheckbox
+import com.github.clockworkclyde.sweepyhelper.ui.compose.contract.ComposeTaskViewEvent
 import com.github.clockworkclyde.sweepyhelper.utils.formatByDefaultDateFormatter
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 
 @Composable
 fun ComposeViewTaskSuggestions(
-    viewModel: ComposeViewModel,
-    onSaveTasksClicked: (List<Long>) -> Unit,
-    appBarState: (AppBarState) -> Unit
+    viewModel: ComposeTaskViewModel,
+    appBarState: (AppBarState) -> Unit,
+    roomId: Long
 ) {
-
     val viewState = viewModel.viewState.collectAsState()
     val state = viewState.value
     val suggestions = viewModel.suggestions.collectAsState()
@@ -40,8 +40,12 @@ fun ComposeViewTaskSuggestions(
     var currentTask by remember { mutableStateOf<Task?>(null) }
 
     LaunchedEffect(key1 = viewState, block = {
-        viewModel.setEvent(ComposeViewEvent.RequestTaskSuggestionsForRoom(state.room.id))
+        viewModel.setEvent(
+            ComposeTaskViewEvent.RequestTaskSuggestionsForRoom(roomId)
+        )
     })
+
+    // viewModel.setEvent(ComposeTaskViewEvent.SubmitTasksSuggestions(it))
 
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
         Box(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
@@ -71,7 +75,6 @@ fun ComposeViewTaskSuggestions(
                                     source.interactions.collect {
                                         if (it is PressInteraction.Release) {
                                             dialogState.show()
-                                            println(dialogState.showing)
                                             currentTask = if (dialogState.showing) {
                                                 task
                                             } else null
@@ -92,7 +95,7 @@ fun ComposeViewTaskSuggestions(
                     currentTask?.let {
                         println(it.toString())
                         viewModel.setEvent(
-                            ComposeViewEvent.UpdateTaskSuggestion(
+                            ComposeTaskViewEvent.UpdateTaskSuggestion(
                                 it.copy(startDate = date)
                             )
                         )

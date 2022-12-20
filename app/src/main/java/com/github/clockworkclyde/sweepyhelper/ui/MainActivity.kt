@@ -14,7 +14,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.github.clockworkclyde.sweepyhelper.models.ui.base.AppBarState
-import com.github.clockworkclyde.sweepyhelper.ui.compose.*
+import com.github.clockworkclyde.sweepyhelper.ui.compose.ComposeRoomScreen
+import com.github.clockworkclyde.sweepyhelper.ui.compose.ComposeTaskScreen
+import com.github.clockworkclyde.sweepyhelper.ui.compose.ComposeTaskViewModel
+import com.github.clockworkclyde.sweepyhelper.ui.compose.ComposeViewTaskSuggestions
 import com.github.clockworkclyde.sweepyhelper.ui.navigation.*
 import com.github.clockworkclyde.sweepyhelper.ui.rooms.RoomsScreen
 import com.github.clockworkclyde.sweepyhelper.ui.rooms.RoomsViewModel
@@ -80,25 +83,26 @@ private fun NavGraphBuilder.composeGraph(
 
         composable(ComposeDirections.ComposeRoom.route) {
             ComposeRoomScreen(
-                viewModel = getViewModel<ComposeViewModel>(),
+                viewModel = getViewModel(),
                 onComposing = appBarStateChanged
             )
         }
         composable(ComposeDirections.TasksSuggestions.route) {
-            val viewModel = getViewModel<ComposeViewModel>()
             ComposeViewTaskSuggestions(
-                viewModel = viewModel,
-                onSaveTasksClicked = { viewModel.setEvent(ComposeViewEvent.SubmitTasksSuggestions(it)) },
-                appBarState = appBarStateChanged
+                viewModel = getViewModel<ComposeTaskViewModel>(),
+                appBarState = appBarStateChanged,
+                roomId = it.arguments?.getLong(KEY_ROOM_ID)
+                    .let { id -> checkNotNull(id) { "Room id is null" } }
             )
         }
         composable(ComposeDirections.ComposeTask.route) {
-            val viewModel = getViewModel<ComposeViewModel>()
+            val viewModel = getViewModel<ComposeTaskViewModel>()
             ComposeTaskScreen(
                 viewModel = viewModel,
                 regularities = viewModel.taskRegularities,
-                onTaskCreated = { },
-                onComposing = appBarStateChanged
+                onComposing = appBarStateChanged,
+                roomId = it.arguments?.getLong(KEY_ROOM_ID)
+                    .let { id -> checkNotNull(id) { "Room id is null" } }
             )
         }
     }
@@ -124,7 +128,8 @@ private fun NavGraphBuilder.roomsWithTasksGraph(
         ) {
             TasksListScreen(
                 viewModel = getViewModel<TasksViewModel>(),
-                roomId = it.arguments?.getLong(MainScreenDirections.KEY_ROOM_ID)
+                roomId = it.arguments?.getLong(KEY_ROOM_ID)
+                    .let { id -> checkNotNull(id) { "Room id is null" } }
             )
         }
         composable(

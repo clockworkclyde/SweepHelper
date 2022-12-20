@@ -5,11 +5,11 @@ import com.github.clockworkclyde.sweepyhelper.domain.usecases.rooms.LoadRoomsUse
 import com.github.clockworkclyde.sweepyhelper.models.base.ItemsViewState
 import com.github.clockworkclyde.sweepyhelper.models.ui.rooms.Room
 import com.github.clockworkclyde.sweepyhelper.ui.base.BaseViewModel
+import com.github.clockworkclyde.sweepyhelper.ui.base.copyToLoading
+import com.github.clockworkclyde.sweepyhelper.ui.base.copyToSuccess
 import com.github.clockworkclyde.sweepyhelper.ui.navigation.AppNavigationController
 import com.github.clockworkclyde.sweepyhelper.ui.navigation.ComposeDirections
 import com.github.clockworkclyde.sweepyhelper.ui.navigation.NavDestination
-import com.github.clockworkclyde.sweepyhelper.utils.copyToLoading
-import com.github.clockworkclyde.sweepyhelper.utils.copyToSuccess
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach

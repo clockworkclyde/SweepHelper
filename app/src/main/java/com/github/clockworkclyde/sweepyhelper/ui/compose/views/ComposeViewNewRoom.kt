@@ -1,6 +1,5 @@
 package com.github.clockworkclyde.sweepyhelper.ui.compose.views
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -15,12 +14,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import com.github.clockworkclyde.sweepyhelper.R
 import com.github.clockworkclyde.sweepyhelper.models.ui.rooms.RoomType
-import com.github.clockworkclyde.sweepyhelper.ui.compose.ComposeViewState
+import com.github.clockworkclyde.sweepyhelper.ui.compose.contract.ComposeRoomViewState
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ComposeViewNewRoom(
-    state: ComposeViewState,
+    state: ComposeRoomViewState,
     roomTypes: List<RoomType>,
     onTitleChanged: (String) -> Unit,
     onTypeChanged: (RoomType) -> Unit,
@@ -32,13 +31,6 @@ fun ComposeViewNewRoom(
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
         Box {
             LazyColumn(content = {
-//                stickyHeader {
-//                    Text(
-//                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
-//                        text = stringResource(R.string.compose_new_room),
-//                        style = MaterialTheme.typography.h6
-//                    )
-//                }
                 item {
                     Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
                         Text(text = stringResource(R.string.compose_room_title))
@@ -47,7 +39,7 @@ fun ComposeViewNewRoom(
                                 .padding(top = 4.dp)
                                 .fillMaxWidth(),
                             enabled = !state.inProgress,
-                            value = state.room.title,
+                            value = state.title,
                             onValueChange = onTitleChanged
                         )
                     }
@@ -69,7 +61,7 @@ fun ComposeViewNewRoom(
                                     .onGloballyPositioned { coordinates ->
                                         textFieldSize = coordinates.size.toSize()
                                     },
-                                value = stringResource(state.room.type.titleId),
+                                value = stringResource(state.type.titleId),
                                 onValueChange = {},
                                 readOnly = true,
                                 trailingIcon = {

@@ -7,14 +7,16 @@ import com.github.clockworkclyde.sweepyhelper.domain.usecases.compose.GetTaskSug
 import com.github.clockworkclyde.sweepyhelper.domain.usecases.rooms.GetConditionForRoomUseCase
 import com.github.clockworkclyde.sweepyhelper.domain.usecases.rooms.GetRoomTypesUseCase
 import com.github.clockworkclyde.sweepyhelper.domain.usecases.rooms.LoadRoomsUseCase
-import com.github.clockworkclyde.sweepyhelper.ui.compose.ComposeViewModel
+import com.github.clockworkclyde.sweepyhelper.ui.compose.ComposeRoomViewModel
+import com.github.clockworkclyde.sweepyhelper.ui.compose.ComposeTaskViewModel
 import com.github.clockworkclyde.sweepyhelper.ui.rooms.RoomsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val presentationModule = module {
     viewModel { RoomsViewModel(get(), get()) }
-    viewModel { ComposeViewModel(get(), get(), get(), get(), get(), get()) }
+    viewModel { ComposeTaskViewModel(get(), get(), get(), get()) }
+    viewModel { ComposeRoomViewModel(get(), get(), get()) }
 
     // UseCases
     single { LoadRoomsUseCase(get(), get()) }

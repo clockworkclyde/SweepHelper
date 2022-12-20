@@ -13,6 +13,12 @@ data class Room(
     override fun convertTo(): RoomEntity {
         return RoomEntity(id = id, title = title, type = type)
     }
+
+    companion object {
+        fun create(title: String, type: RoomType): Room {
+            return Room(title = title, type = type)
+        }
+    }
 }
 
 enum class Condition(val id: Int, val value: Int) {
