@@ -1,4 +1,4 @@
-package com.github.clockworkclyde.sweepyhelper.ui.rooms.composables
+package com.github.clockworkclyde.sweepyhelper.ui.rooms.views
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

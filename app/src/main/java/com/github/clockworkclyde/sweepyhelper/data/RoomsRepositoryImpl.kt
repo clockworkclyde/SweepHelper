@@ -3,7 +3,6 @@ package com.github.clockworkclyde.sweepyhelper.data
 import com.github.clockworkclyde.sweepyhelper.data.datasources.RoomsLocalDataSource
 import com.github.clockworkclyde.sweepyhelper.domain.repository.RoomsRepository
 import com.github.clockworkclyde.sweepyhelper.models.ui.rooms.Room
-import com.github.clockworkclyde.sweepyhelper.models.ui.rooms.RoomType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -21,9 +20,5 @@ class RoomsRepositoryImpl(private val dataSource: RoomsLocalDataSource) : RoomsR
 
     override suspend fun removeRoom(id: Long) {
         dataSource.removeRoom(id)
-    }
-
-    override fun getRoomTypes(): List<RoomType> {
-        return RoomType.values().toList()
     }
 }

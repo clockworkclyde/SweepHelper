@@ -1,10 +1,11 @@
-package com.github.clockworkclyde.sweepyhelper.ui.compose.composables
+package com.github.clockworkclyde.sweepyhelper.ui.compose.views
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -13,15 +14,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import com.github.clockworkclyde.sweepyhelper.R
-import com.github.clockworkclyde.sweepyhelper.models.ui.rooms.Room
 import com.github.clockworkclyde.sweepyhelper.models.ui.rooms.RoomType
-import com.github.clockworkclyde.sweepyhelper.models.ui.tasks.Task
 import com.github.clockworkclyde.sweepyhelper.ui.compose.ComposeViewState
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun ComposeViewNewRoom(
-    state: ComposeViewState<Room, List<Task>>,
+    state: ComposeViewState,
     roomTypes: List<RoomType>,
     onTitleChanged: (String) -> Unit,
     onTypeChanged: (RoomType) -> Unit,
@@ -33,13 +32,13 @@ fun ComposeViewNewRoom(
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
         Box {
             LazyColumn(content = {
-                stickyHeader {
-                    Text(
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
-                        text = stringResource(R.string.compose_new_room),
-                        style = MaterialTheme.typography.h5
-                    )
-                }
+//                stickyHeader {
+//                    Text(
+//                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
+//                        text = stringResource(R.string.compose_new_room),
+//                        style = MaterialTheme.typography.h6
+//                    )
+//                }
                 item {
                     Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
                         Text(text = stringResource(R.string.compose_room_title))
@@ -93,21 +92,20 @@ fun ComposeViewNewRoom(
                         }
                     }
                 }
-
-                item {
-                    Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)) {
-                        Button(
-                            modifier = Modifier.fillMaxWidth(),
-                            enabled = !state.inProgress,
-                            onClick = { onSaveButtonClicked() }) {
-                            Text(
-                                text = stringResource(R.string.compose_room_save_btn),
-                                style = MaterialTheme.typography.h6
-                            )
-                        }
-                    }
-                }
             })
+
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter),
+                enabled = !state.inProgress,
+                onClick = { onSaveButtonClicked() }) {
+                Text(
+                    text = stringResource(R.string.compose_room_save_btn),
+                    style = MaterialTheme.typography.h6
+                )
+            }
+
         }
     }
 }

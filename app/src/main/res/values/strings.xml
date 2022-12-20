@@ -18,4 +18,22 @@
     <string name="room_type_wardrobe">Гардероб</string>
     <string name="room_type_not_selected">Не выбран</string>
     <string name="compose_room_save_btn">Создать</string>
+    <string name="title_room_content">Комнаты</string>
+    <string name="compose_task_title">Задание</string>
+    <string name="compose_task_start_date">Начиная с</string>
+    <string name="date_positive_button">Сохранить</string>
+    <string name="date_negative_button">Отмена</string>
+    <string name="regularity_hours">часов</string>
+    <string name="years">лет</string>
+    <string name="months">месяцев</string>
+    <string name="weeks">недель</string>
+    <string name="days">дней</string>
+    <string name="compose_task_regularity">Будет повторяться каждые</string>
+    <string name="compose_task_description">Описание (опционально)</string>
+    <string name="compose_task_switch_regularity_mode">Режим повтора</string>
+    <string name="compose_task_create_button">Сохранить задачу</string>
+    <string name="compose_new_task">Создание комнаты</string>
+    <string name="compose_room_tasks">Комната</string>
+    <string name="title_task_content">Задания</string>
+    <string name="title_rooms_screen">Комнаты</string>
 </resources>

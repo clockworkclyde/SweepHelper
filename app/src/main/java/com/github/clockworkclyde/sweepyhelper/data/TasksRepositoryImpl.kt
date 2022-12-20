@@ -21,8 +21,10 @@ class TasksRepositoryImpl(private val dataSource: TasksLocalDataSource) : TasksR
             .sortedBy { it.title.first() }
     }
 
-    override suspend fun createNewTask(task: Task) {
-        dataSource.createNewTask(task.convertTo())
+    override suspend fun createNewTasks(tasks: List<Task>) {
+        tasks.map { it.convertTo() }.let {
+            dataSource.createNewTasks(it)
+        }
     }
 
     override suspend fun removeTask(id: Long) {

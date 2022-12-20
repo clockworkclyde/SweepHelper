@@ -1,9 +1,6 @@
 package com.github.clockworkclyde.sweepyhelper.providers.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.github.clockworkclyde.sweepyhelper.models.local.tasks.TaskEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -17,7 +14,10 @@ interface TasksDao {
     suspend fun getTasksByOwnerId(id: Long): List<TaskEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun createNewTask(task: TaskEntity)
+    suspend fun createNewTasks(task: List<TaskEntity>)
+
+    @Update
+    suspend fun updateTaskData(task: TaskEntity)
 
     @Query("DELETE FROM TaskEntity WHERE id = :id")
     suspend fun removeTask(id: Long)

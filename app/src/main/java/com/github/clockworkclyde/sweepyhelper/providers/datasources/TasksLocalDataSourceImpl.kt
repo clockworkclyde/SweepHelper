@@ -15,8 +15,8 @@ class TasksLocalDataSourceImpl(private val dao: TasksDao) : TasksLocalDataSource
         return dao.getTasksByOwnerId(id)
     }
 
-    override suspend fun createNewTask(task: TaskEntity) {
-        dao.createNewTask(task)
+    override suspend fun createNewTasks(task: List<TaskEntity>) {
+        dao.createNewTasks(task)
     }
 
     override suspend fun removeTask(id: Long) {
