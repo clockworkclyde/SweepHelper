@@ -16,26 +16,38 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.github.clockworkclyde.sweepyhelper.models.ui.base.AppBarState
 import com.github.clockworkclyde.sweepyhelper.ui.compose.*
-import com.github.clockworkclyde.sweepyhelper.ui.navigation.ComposeDirections
-import com.github.clockworkclyde.sweepyhelper.ui.navigation.MainScreenDirections
+import com.github.clockworkclyde.sweepyhelper.ui.navigation.*
 import com.github.clockworkclyde.sweepyhelper.ui.rooms.RoomsScreen
 import com.github.clockworkclyde.sweepyhelper.ui.rooms.RoomsViewModel
 import com.github.clockworkclyde.sweepyhelper.ui.tasks.TasksListScreen
 import com.github.clockworkclyde.sweepyhelper.ui.tasks.TasksViewModel
 import com.github.clockworkclyde.sweepyhelper.ui.theme.SweepyHelperTheme
+import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val navController = rememberNavController()
+            val appNavigationController = get<AppNavigationController>()
+
+            LaunchedEffect(key1 = appNavigationController.destinations) {
+                appNavigationController.destinations.collect { destination ->
+                    when (destination) {
+                        InitialDestination -> {}
+                        NavigateUpDestination -> navController.navigateUp()
+                        else -> navController.navigate(destination.route)
+                    }
+                }
+            }
+
             SweepyHelperTheme(darkTheme = true) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
                     var title by remember { mutableStateOf("") }
-                    val navController = rememberNavController()
                     Scaffold(topBar = {
                         TopAppBar {
                             Text(text = title)
@@ -53,7 +65,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun AppNavHost(navController: NavHostController, appBarStateChanged: (AppBarState) -> Unit) {
-    NavHost(navController = navController, startDestination = MainScreenDirections.root.route) {
+    NavHost(navController = navController, startDestination = MainScreenDirections.Root.route) {
         roomsWithTasksGraph(navController = navController, AppBarStateChanged = appBarStateChanged)
         composeGraph(navController = navController, appBarState = appBarStateChanged)
     }
@@ -64,18 +76,17 @@ private fun NavGraphBuilder.composeGraph(
     appBarState: (AppBarState) -> Unit
 ) {
     navigation(
-        startDestination = ComposeDirections.composeRoom.route,
-        route = ComposeDirections.root.route
+        startDestination = ComposeDirections.ComposeRoom.route,
+        route = ComposeDirections.Root.route
     ) {
 
-        composable(ComposeDirections.composeRoom.route) {
+        composable(ComposeDirections.ComposeRoom.route) {
             ComposeRoomScreen(
-                navController = navController,
                 viewModel = getViewModel<ComposeViewModel>(),
                 onComposing = appBarState
             )
         }
-        composable(ComposeDirections.tasksSuggestions.route) {
+        composable(ComposeDirections.TasksSuggestions.route) {
             val viewModel = getViewModel<ComposeViewModel>()
             ComposeViewTaskSuggestions(
                 viewModel = viewModel,
@@ -83,7 +94,7 @@ private fun NavGraphBuilder.composeGraph(
                 appBarState = appBarState
             )
         }
-        composable(ComposeDirections.composeTask.route) {
+        composable(ComposeDirections.ComposeTask.route) {
             val viewModel = getViewModel<ComposeViewModel>()
             ComposeTaskScreen(
                 viewModel = viewModel,
@@ -100,11 +111,11 @@ private fun NavGraphBuilder.roomsWithTasksGraph(
     AppBarStateChanged: (AppBarState) -> Unit
 ) {
     navigation(
-        startDestination = MainScreenDirections.rooms.route,
-        route = MainScreenDirections.root.route,
-        arguments = MainScreenDirections.root.args
+        startDestination = MainScreenDirections.Rooms.route,
+        route = MainScreenDirections.Root.route,
+        arguments = MainScreenDirections.Root.args
     ) {
-        composable(MainScreenDirections.rooms.route) {
+        composable(MainScreenDirections.Rooms.route) {
             RoomsScreen(
                 navController = navController,
                 viewModel = getViewModel<RoomsViewModel>(),
@@ -112,8 +123,8 @@ private fun NavGraphBuilder.roomsWithTasksGraph(
             )
         }
         composable(
-            route = MainScreenDirections.tasks.route,
-            arguments = MainScreenDirections.tasks.args
+            route = MainScreenDirections.Tasks.route,
+            arguments = MainScreenDirections.Tasks.args
         ) {
             TasksListScreen(
                 navController = navController,
@@ -122,8 +133,8 @@ private fun NavGraphBuilder.roomsWithTasksGraph(
             )
         }
         composable(
-            route = MainScreenDirections.taskDetails.route,
-            arguments = MainScreenDirections.taskDetails.args
+            route = MainScreenDirections.TaskDetails.route,
+            arguments = MainScreenDirections.TaskDetails.args
         ) {
 //            TaskDetailsScreen(
 //                navController = navController,

@@ -12,6 +12,8 @@ import com.github.clockworkclyde.sweepyhelper.models.ui.rooms.Room
 import com.github.clockworkclyde.sweepyhelper.models.ui.rooms.RoomType
 import com.github.clockworkclyde.sweepyhelper.models.ui.tasks.Task
 import com.github.clockworkclyde.sweepyhelper.ui.base.BaseViewModel
+import com.github.clockworkclyde.sweepyhelper.ui.navigation.AppNavigationController
+import com.github.clockworkclyde.sweepyhelper.ui.navigation.NavigateUpDestination
 import com.github.clockworkclyde.sweepyhelper.utils.copyToAddNewTask
 import com.github.clockworkclyde.sweepyhelper.utils.copyToProgress
 import com.github.clockworkclyde.sweepyhelper.utils.copyToSaveLocallySuccess
@@ -27,7 +29,8 @@ class ComposeViewModel(
     private val createTasksForRoom: CreateTasksForRoomUseCase,
     private val getTaskSuggestionsForRoom: GetTaskSuggestionsForRoomUseCase,
     private val getRoomTypes: GetRoomTypesUseCase,
-    private val getTaskRegularities: GetTaskRegularitiesUseCase
+    private val getTaskRegularities: GetTaskRegularitiesUseCase,
+    private val navigationController: AppNavigationController
 ) : BaseViewModel<ComposeViewState, ComposeViewEvent, ComposeViewEffect>() {
 
     private val _suggestions = MutableStateFlow<SnapshotStateList<Task>>(mutableStateListOf())
@@ -128,6 +131,7 @@ class ComposeViewModel(
                 }
             }
             setState { copyToSaveLocallySuccess() }
+            navigationController.setNewDestination(NavigateUpDestination)
         }
     }
 }

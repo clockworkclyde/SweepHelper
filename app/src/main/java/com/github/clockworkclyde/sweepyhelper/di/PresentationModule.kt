@@ -13,8 +13,8 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val presentationModule = module {
-    viewModel { RoomsViewModel(get()) }
-    viewModel { ComposeViewModel(get(), get(), get(), get(), get()) }
+    viewModel { RoomsViewModel(get(), get()) }
+    viewModel { ComposeViewModel(get(), get(), get(), get(), get(), get()) }
 
     // UseCases
     single { LoadRoomsUseCase(get(), get()) }

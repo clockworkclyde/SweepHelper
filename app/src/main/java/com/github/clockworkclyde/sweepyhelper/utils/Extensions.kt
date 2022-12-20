@@ -4,6 +4,7 @@ import com.github.clockworkclyde.sweepyhelper.models.base.ItemsViewState
 import com.github.clockworkclyde.sweepyhelper.models.ui.rooms.Room
 import com.github.clockworkclyde.sweepyhelper.models.ui.tasks.Task
 import com.github.clockworkclyde.sweepyhelper.ui.compose.ComposeViewState
+import timber.log.Timber
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -51,3 +52,13 @@ fun String.checkIsRegularityQuantityValid(): String? {
 private val dateFormatter by lazy { (DateTimeFormatter.ofPattern("dd-MM-yyyy")) }
 
 fun LocalDate.formatByDefaultDateFormatter(): String = format(dateFormatter)
+
+// Logging extensions
+
+inline fun logg(crossinline onText: () -> String) {
+    Timber.e(onText())
+}
+
+inline fun loggError(crossinline onThrowable: () -> Throwable) {
+    Timber.e(onThrowable())
+}
