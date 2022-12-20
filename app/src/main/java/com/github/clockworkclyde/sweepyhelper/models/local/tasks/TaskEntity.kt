@@ -12,10 +12,12 @@ data class TaskEntity(
     @PrimaryKey val id: Long,
     val title: String,
     val owner: Long,
+    val regularityQuantity: Int,
     val regularity: Regularity,
     val isOnRepeatNow: Boolean,
     val startDate: String,
-    val lastCleanedUpAt: String
+    val lastCleanedUpAt: String,
+    val creationTimeMillis: Long
 ) : IConvertableTo<Task> {
 
     override fun convertTo(): Task {
@@ -26,7 +28,9 @@ data class TaskEntity(
             regularity = regularity,
             isOnRepeatNow = isOnRepeatNow,
             startDate = DateTimeConverter.stringToDate(startDate),
-            lastCleanedUpAt = DateTimeConverter.stringToDate(lastCleanedUpAt)
+            lastCleanedUpAt = DateTimeConverter.stringToDate(lastCleanedUpAt),
+            creationTimeMillis = creationTimeMillis,
+            regularityQuantity = regularityQuantity
         )
     }
 }

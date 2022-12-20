@@ -1,18 +1,21 @@
 package com.github.clockworkclyde.sweepyhelper.models.ui.tasks
 
+import com.github.clockworkclyde.sweepyhelper.R
 import com.github.clockworkclyde.sweepyhelper.models.local.tasks.TaskEntity
 import com.github.clockworkclyde.sweepyhelper.models.ui.rooms.Condition
 import com.github.clockworkclyde.sweepyhelper.utils.DateTimeConverter
 import com.github.clockworkclyde.sweepyhelper.utils.IConvertableTo
-import org.joda.time.DateTime
+import java.time.LocalDate
 
 data class Task(
-    val id: Long,
+    val id: Long = 0L,
     val title: String,
     val owner: Long,
-    val startDate: DateTime,
-    val lastCleanedUpAt: DateTime,
+    val startDate: LocalDate,
+    val lastCleanedUpAt: LocalDate,
+    val creationTimeMillis: Long,
     val condition: Condition = Condition.Empty,
+    val regularityQuantity: Int,
     val regularity: Regularity,
     val isOnRepeatNow: Boolean = false
 ) : IConvertableTo<TaskEntity> {
@@ -25,11 +28,35 @@ data class Task(
             startDate = DateTimeConverter.dateToString(startDate),
             lastCleanedUpAt = DateTimeConverter.dateToString(lastCleanedUpAt),
             regularity = regularity,
-            isOnRepeatNow = isOnRepeatNow
+            isOnRepeatNow = isOnRepeatNow,
+            creationTimeMillis = creationTimeMillis,
+            regularityQuantity = regularityQuantity
         )
+    }
+
+    companion object {
+        fun create(
+            title: String,
+            owner: Long,
+            startDate: LocalDate,
+            regularityQuantity: Int,
+            regularity: Regularity
+        ): Task {
+            val now = System.currentTimeMillis()
+            return Task(
+                id = title.hashCode().toLong() + now,
+                title = title,
+                owner = owner,
+                startDate = startDate,
+                lastCleanedUpAt = LocalDate.now(),
+                regularity = regularity,
+                creationTimeMillis = now,
+                regularityQuantity = regularityQuantity
+            )
+        }
     }
 }
 
-enum class Regularity(val amount: Int = 0) {
-    Hours, Days, Weeks, Months, Years
+enum class Regularity(val titleId: Int) {
+    Hours(R.string.regularity_hours), Days(R.string.days), Weeks(R.string.weeks), Months(R.string.months)
 }

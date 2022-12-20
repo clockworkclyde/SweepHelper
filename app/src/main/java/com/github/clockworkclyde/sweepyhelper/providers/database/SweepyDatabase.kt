@@ -8,7 +8,7 @@ import com.github.clockworkclyde.sweepyhelper.models.local.tasks.TaskEntity
 @Database(
     entities = [RoomEntity::class, TaskEntity::class],
     views = [],
-    version = 2,
+    version = 4,
     exportSchema = false
 )
 abstract class SweepyDatabase : RoomDatabase() {
