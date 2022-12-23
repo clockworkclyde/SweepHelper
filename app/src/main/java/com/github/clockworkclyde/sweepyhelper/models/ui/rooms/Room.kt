@@ -1,7 +1,7 @@
 package com.github.clockworkclyde.sweepyhelper.models.ui.rooms
 
 import com.github.clockworkclyde.sweepyhelper.R
-import com.github.clockworkclyde.sweepyhelper.models.local.rooms.RoomEntity
+import com.github.clockworkclyde.sweepyhelper.models.data.local.rooms.RoomEntity
 import com.github.clockworkclyde.sweepyhelper.utils.IConvertableTo
 
 data class Room(

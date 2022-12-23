@@ -2,8 +2,8 @@ package com.github.clockworkclyde.sweepyhelper.providers.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.github.clockworkclyde.sweepyhelper.models.local.rooms.RoomEntity
-import com.github.clockworkclyde.sweepyhelper.models.local.tasks.TaskEntity
+import com.github.clockworkclyde.sweepyhelper.models.data.local.rooms.RoomEntity
+import com.github.clockworkclyde.sweepyhelper.models.data.local.tasks.TaskEntity
 
 @Database(
     entities = [RoomEntity::class, TaskEntity::class],

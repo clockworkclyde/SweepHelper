@@ -8,13 +8,18 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-class AppNavigationController(private val applicationScope: CoroutineScope) {
+class DestinationManager(
+    private val applicationScope: CoroutineScope
+) {
+    //private val _map: MutableMap<String, Any?> = mutableMapOf()
 
     private val _destinations = MutableSharedFlow<NavDestination>()
     val destinations = _destinations.asSharedFlow()
 
-    fun setNewDestination(direction: NavDestination) {
-        applicationScope.launch { _destinations.emit(direction) }
+    fun setDestination(destination: NavDestination) {
+        applicationScope.launch {
+            _destinations.emit(destination)
+        }
     }
 
     init {

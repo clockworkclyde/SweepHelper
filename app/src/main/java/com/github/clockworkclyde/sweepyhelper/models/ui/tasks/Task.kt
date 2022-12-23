@@ -1,7 +1,7 @@
 package com.github.clockworkclyde.sweepyhelper.models.ui.tasks
 
 import com.github.clockworkclyde.sweepyhelper.R
-import com.github.clockworkclyde.sweepyhelper.models.local.tasks.TaskEntity
+import com.github.clockworkclyde.sweepyhelper.models.data.local.tasks.TaskEntity
 import com.github.clockworkclyde.sweepyhelper.models.ui.rooms.Condition
 import com.github.clockworkclyde.sweepyhelper.utils.DateTimeConverter
 import com.github.clockworkclyde.sweepyhelper.utils.IConvertableTo

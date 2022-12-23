@@ -1,22 +1,19 @@
 package com.github.clockworkclyde.sweepyhelper.ui.compose.views
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.toSize
 import com.github.clockworkclyde.sweepyhelper.R
 import com.github.clockworkclyde.sweepyhelper.models.ui.rooms.RoomType
+import com.github.clockworkclyde.sweepyhelper.ui.composables.DropdownMenuByTextField
 import com.github.clockworkclyde.sweepyhelper.ui.compose.contract.ComposeRoomViewState
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ComposeViewNewRoom(
     state: ComposeRoomViewState,
@@ -25,66 +22,33 @@ fun ComposeViewNewRoom(
     onTypeChanged: (RoomType) -> Unit,
     onSaveButtonClicked: () -> Unit
 ) {
-    var isExpanded by remember { mutableStateOf(false) }
-    var textFieldSize by remember { mutableStateOf(Size.Zero) }
+    val context = LocalContext.current
+    val roomTypeMenuItems = remember { roomTypes.map { context.getString(it.titleId) } }
 
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
         Box {
-            LazyColumn(content = {
-                item {
-                    Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
-                        Text(text = stringResource(R.string.compose_room_title))
-                        TextField(
-                            modifier = Modifier
-                                .padding(top = 4.dp)
-                                .fillMaxWidth(),
-                            enabled = !state.inProgress,
-                            value = state.title,
-                            onValueChange = onTitleChanged
-                        )
-                    }
-                }
+            Column(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)) {
 
-                item {
-                    Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)) {
-                        Text(text = stringResource(R.string.compose_room_type))
+                Text(text = stringResource(R.string.title_compose_room))
+                TextField(
+                    modifier = Modifier
+                        .padding(top = 8.dp)
+                        .fillMaxWidth(),
+                    enabled = !state.inProgress,
+                    value = state.title,
+                    onValueChange = onTitleChanged
+                )
+                Spacer(Modifier.height(16.dp))
 
-                        ExposedDropdownMenuBox(
-                            modifier = Modifier.padding(top = 4.dp),
-                            expanded = isExpanded,
-                            onExpandedChange = {
-                                isExpanded = !isExpanded
-                            }) {
-                            TextField(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .onGloballyPositioned { coordinates ->
-                                        textFieldSize = coordinates.size.toSize()
-                                    },
-                                value = stringResource(state.type.titleId),
-                                onValueChange = {},
-                                readOnly = true,
-                                trailingIcon = {
-                                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
-                                }, colors = ExposedDropdownMenuDefaults.textFieldColors()
-                            )
-                            DropdownMenu(
-                                modifier = Modifier.width(with(LocalDensity.current) { textFieldSize.width.toDp() }),
-                                expanded = isExpanded,
-                                onDismissRequest = { isExpanded = false }) {
-                                roomTypes.forEach {
-                                    DropdownMenuItem(onClick = {
-                                        onTypeChanged(it)
-                                        isExpanded = false
-                                    }) {
-                                        Text(text = stringResource(it.titleId))
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            })
+                Text(text = stringResource(R.string.compose_room_type))
+                DropdownMenuByTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
+                    items = roomTypeMenuItems,
+                    initialValue = stringResource(state.type.titleId),
+                    onItemClicked = { onTypeChanged(roomTypes[it]) })
+            }
 
             Button(
                 modifier = Modifier

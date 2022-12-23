@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface RoomsRepository {
     fun loadRooms(): Flow<List<Room>>
+    suspend fun loadRoom(id: Long): Room
     suspend fun createRoom(room: Room)
     suspend fun removeRoom(id: Long)
 }

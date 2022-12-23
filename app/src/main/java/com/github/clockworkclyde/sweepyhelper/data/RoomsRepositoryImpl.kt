@@ -14,6 +14,10 @@ class RoomsRepositoryImpl(private val dataSource: RoomsLocalDataSource) : RoomsR
         }
     }
 
+    override suspend fun loadRoom(id: Long): Room {
+        return dataSource.loadRoom(id).convertTo()
+    }
+
     override suspend fun createRoom(room: Room) {
         room.convertTo().let { dataSource.createNewRoom(it) }
     }

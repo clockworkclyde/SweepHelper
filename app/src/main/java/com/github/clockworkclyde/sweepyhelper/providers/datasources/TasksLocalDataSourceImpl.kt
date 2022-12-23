@@ -1,7 +1,7 @@
 package com.github.clockworkclyde.sweepyhelper.providers.datasources
 
 import com.github.clockworkclyde.sweepyhelper.data.datasources.TasksLocalDataSource
-import com.github.clockworkclyde.sweepyhelper.models.local.tasks.TaskEntity
+import com.github.clockworkclyde.sweepyhelper.models.data.local.tasks.TaskEntity
 import com.github.clockworkclyde.sweepyhelper.providers.database.TasksDao
 import kotlinx.coroutines.flow.Flow
 

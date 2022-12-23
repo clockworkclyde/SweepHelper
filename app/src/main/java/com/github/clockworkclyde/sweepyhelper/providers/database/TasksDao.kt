@@ -1,7 +1,7 @@
 package com.github.clockworkclyde.sweepyhelper.providers.database
 
 import androidx.room.*
-import com.github.clockworkclyde.sweepyhelper.models.local.tasks.TaskEntity
+import com.github.clockworkclyde.sweepyhelper.models.data.local.tasks.TaskEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

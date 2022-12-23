@@ -1,4 +1,4 @@
-package com.github.clockworkclyde.sweepyhelper.models.local.rooms
+package com.github.clockworkclyde.sweepyhelper.models.data.local.rooms
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

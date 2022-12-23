@@ -1,6 +1,6 @@
 package com.github.clockworkclyde.sweepyhelper.data.datasources
 
-import com.github.clockworkclyde.sweepyhelper.models.local.tasks.TaskEntity
+import com.github.clockworkclyde.sweepyhelper.models.data.local.tasks.TaskEntity
 import kotlinx.coroutines.flow.Flow
 
 interface TasksLocalDataSource {

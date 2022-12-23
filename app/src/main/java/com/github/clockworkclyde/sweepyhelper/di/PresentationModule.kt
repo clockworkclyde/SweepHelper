@@ -6,17 +6,21 @@ import com.github.clockworkclyde.sweepyhelper.domain.usecases.compose.GetTaskReg
 import com.github.clockworkclyde.sweepyhelper.domain.usecases.compose.GetTaskSuggestionsForRoomUseCase
 import com.github.clockworkclyde.sweepyhelper.domain.usecases.rooms.GetConditionForRoomUseCase
 import com.github.clockworkclyde.sweepyhelper.domain.usecases.rooms.GetRoomTypesUseCase
+import com.github.clockworkclyde.sweepyhelper.domain.usecases.rooms.LoadRoomByIdUseCase
 import com.github.clockworkclyde.sweepyhelper.domain.usecases.rooms.LoadRoomsUseCase
+import com.github.clockworkclyde.sweepyhelper.domain.usecases.tasks.LoadTasksByRoomIdUseCase
 import com.github.clockworkclyde.sweepyhelper.ui.compose.ComposeRoomViewModel
 import com.github.clockworkclyde.sweepyhelper.ui.compose.ComposeTaskViewModel
 import com.github.clockworkclyde.sweepyhelper.ui.rooms.RoomsViewModel
+import com.github.clockworkclyde.sweepyhelper.ui.tasks.TasksViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val presentationModule = module {
     viewModel { RoomsViewModel(get(), get()) }
-    viewModel { ComposeTaskViewModel(get(), get(), get(), get()) }
+    viewModel { ComposeTaskViewModel(get(), get(), get()) }
     viewModel { ComposeRoomViewModel(get(), get(), get()) }
+    viewModel { TasksViewModel(get(), get(), get()) }
 
     // UseCases
     single { LoadRoomsUseCase(get(), get()) }
@@ -26,4 +30,6 @@ val presentationModule = module {
     single { GetTaskRegularitiesUseCase() }
     single { CreateTasksForRoomUseCase(get()) }
     single { GetTaskSuggestionsForRoomUseCase() }
+    single { LoadRoomByIdUseCase(get()) }
+    single { LoadTasksByRoomIdUseCase(get()) }
 }

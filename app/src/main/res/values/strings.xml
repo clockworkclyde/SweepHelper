@@ -8,7 +8,7 @@
     <string name="condition_empty">Пока нет дел</string>
     <string name="no_rooms_found">Комнаты не найдены</string>
     <string name="btn_create_first_room">Создать новую</string>
-    <string name="compose_room_title">Название комнаты</string>
+    <string name="title_compose_room">Название комнаты</string>
     <string name="compose_new_room">Создание комнаты</string>
     <string name="compose_room_type">Тип комнаты</string>
     <string name="room_type_kitchen">Кухня</string>
@@ -32,8 +32,11 @@
     <string name="compose_task_description">Описание (опционально)</string>
     <string name="compose_task_switch_regularity_mode">Режим повтора</string>
     <string name="compose_task_create_button">Сохранить задачу</string>
-    <string name="compose_new_task">Создание комнаты</string>
+    <string name="title_compose_new_task">Создание комнаты</string>
     <string name="compose_room_tasks">Комната</string>
-    <string name="title_task_content">Задания</string>
+    <string name="title_tasks_list">Задания</string>
     <string name="title_rooms_screen">Комнаты</string>
+    <string name="suggestion_for_empty_room">В комнате ещё пусто, но вы можете добавить первое!</string>
+    <string name="no_tasks_found">Нет заданий</string>
+    <string name="title_task_details">Задание</string>
 </resources>

@@ -9,7 +9,6 @@ import com.github.clockworkclyde.sweepyhelper.models.ui.tasks.Regularity
 import com.github.clockworkclyde.sweepyhelper.models.ui.tasks.Task
 import com.github.clockworkclyde.sweepyhelper.ui.base.BaseViewModel
 import com.github.clockworkclyde.sweepyhelper.ui.compose.contract.*
-import com.github.clockworkclyde.sweepyhelper.ui.navigation.AppNavigationController
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.time.LocalDate
@@ -18,7 +17,6 @@ class ComposeTaskViewModel(
     private val createTasksForRoom: CreateTasksForRoomUseCase,
     private val getTaskSuggestionsForRoom: GetTaskSuggestionsForRoomUseCase,
     private val getTaskRegularities: GetTaskRegularitiesUseCase,
-    private val navigationController: AppNavigationController
 ) : BaseViewModel<ComposeTaskViewState, ComposeTaskViewEvent, ComposeTaskViewEffect>() {
 
     private val _suggestions = MutableStateFlow<SnapshotStateList<Task>>(mutableStateListOf())
@@ -96,7 +94,7 @@ class ComposeTaskViewModel(
     }
 
     private fun addNewTask() {
-        val task = currentState.let {
+        val task = currentState().let {
             Task.create(
                 title = it.title,
                 owner = it.owner,
@@ -106,7 +104,7 @@ class ComposeTaskViewModel(
             )
         }
         if (!validateTaskFields(task)) {
-            // setEffect()
+            //setEffect()
             return
         }
         setState { copyToAddNewTask(task) }

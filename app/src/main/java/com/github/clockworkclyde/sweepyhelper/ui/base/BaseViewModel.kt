@@ -2,6 +2,7 @@ package com.github.clockworkclyde.sweepyhelper.ui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.clockworkclyde.sweepyhelper.utils.logg
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -18,7 +19,7 @@ abstract class BaseViewModel<
     private val _viewState = MutableStateFlow<UiState>(initialState)
     val viewState = _viewState.asStateFlow()
 
-    val currentState = _viewState.value
+    fun currentState() = _viewState.value
 
     private val _event = MutableSharedFlow<Event>()
 
@@ -40,6 +41,7 @@ abstract class BaseViewModel<
 
     private fun subscribeToEvents() {
         _event.onEach {
+            logg { "Handle Event: $it" }
             handleEvents(it)
         }.launchIn(viewModelScope)
     }
